@@ -4,12 +4,25 @@
     {
       "id": "laboratorios",
       "nombre": "Visitas de laboratorios",
-      "publica": "laboratoriosvr.dermasevilla.es"
+      "publica": "laboratoriosvr.dermasevilla.es",
+      "ips_espana": [
+        "188.114.96.5",
+        "188.114.97.5",
+        "2a06:98c1:3120::5",
+        "2a06:98c1:3121::5"
+      ]
     },
     {
       "id": "rotaciones",
       "nombre": "Rotaciones externas",
-      "publica": "rotacionesvr.dermasevilla.es"
+      "publica": "rotacionesvr.dermasevilla.es",
+      "ips_espana": [
+        "188.114.96.5",
+        "188.114.97.5",
+        "2a06:98c1:3120::5",
+        "2a06:98c1:3121::5"
+      ]
     }
-  ]
+  ],
+  "_nota": "ips_espana: IPs que ve un usuario en España (nslookup desde España). Revisar si cambian."
 }

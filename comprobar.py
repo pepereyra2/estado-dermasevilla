@@ -179,6 +179,11 @@ def main():
             if not host:
                 continue
             ips = resolver(host)
+            # Cloudflare no da las mismas IPs en todos los países: GitHub (EE. UU.) ve otras distintas de las que ve
+            # un usuario en España, que son las que se bloquean. Si config.json trae «ips_espana», se comprueban esas.
+            vistas = ips
+            if ruta == "publica" and app.get("ips_espana"):
+                ips = sorted(app["ips_espana"])
             ops = operadores_que_bloquean(ips, listas) if fuente_ok else ant.get("rutas", {}).get(ruta, {}).get("operadores", [])
             bloq = bool(ops)
             antes = bool(ant.get("rutas", {}).get(ruta, {}).get("bloqueada"))
@@ -188,7 +193,7 @@ def main():
                 cerrar(hist, aid, "bloqueo", ruta, momento); cambios = True
             elif bloq and actualizar_abierto(hist, aid, "bloqueo", ruta, ops):
                 cambios = True
-            rutas[ruta] = {"host": host, "ips": ips, "bloqueada": bloq, "operadores": ops}
+            rutas[ruta] = {"host": host, "ips": ips, "ips_github": vistas, "bloqueada": bloq, "operadores": ops}
 
         # ¿Responde la dirección pública? (desde fuera de España, así que no la afectan los bloqueos)
         http = comprobar_http(app["publica"]) if app.get("publica") else {"ok": True}
