@@ -1,1 +1,70 @@
-{}
+{
+ "titulo": "Estado del acceso · Dermatología HUVR",
+ "ultima_comprobacion": "2026-11-01T11:07:56Z",
+ "fuente_ok": true,
+ "operadores": [
+  "movistar",
+  "vodafone",
+  "orange",
+  "masmovil",
+  "digi"
+ ],
+ "listas_leidas": [
+  "movistar",
+  "vodafone",
+  "orange",
+  "masmovil",
+  "digi"
+ ],
+ "apps": [
+  {
+   "id": "laboratorios",
+   "nombre": "Visitas de laboratorios",
+   "publica": "laboratoriosvr.dermasevilla.es",
+   "rutas": {
+    "publica": {
+     "host": "laboratoriosvr.dermasevilla.es",
+     "ips": [
+      "104.21.5.213",
+      "172.67.133.220",
+      "2606:4700:3035::6815:5d5",
+      "2606:4700:3035::ac43:85dc"
+     ],
+     "bloqueada": false,
+     "operadores": []
+    }
+   },
+   "http": {
+    "ok": true,
+    "codigo": 200
+   },
+   "fallos_seguidos": 0,
+   "caida": false
+  },
+  {
+   "id": "rotaciones",
+   "nombre": "Rotaciones externas",
+   "publica": "rotacionesvr.dermasevilla.es",
+   "rutas": {
+    "publica": {
+     "host": "rotacionesvr.dermasevilla.es",
+     "ips": [
+      "104.21.5.213",
+      "172.67.133.220",
+      "2606:4700:3035::6815:5d5",
+      "2606:4700:3035::ac43:85dc"
+     ],
+     "bloqueada": false,
+     "operadores": []
+    }
+   },
+   "http": {
+    "ok": true,
+    "codigo": 200
+   },
+   "fallos_seguidos": 0,
+   "caida": false
+  }
+ ],
+ "ultima_publicacion": "2026-11-01T11:07:56Z"
+}
