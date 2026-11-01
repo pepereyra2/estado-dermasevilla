@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estado del acceso</title>
+<meta name="description" content="Estado de acceso a las aplicaciones del Servicio e historial de bloqueos de IP durante los partidos de fútbol.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b4f45'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='white' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{
+  --fondo:#f4f6f5; --carta:#fff; --tinta:#1d2b28; --suave:#5f706c; --borde:#dbe3e0; --marca:#0b4f45;
+  --ok:#1e7a4a; --ok-f:#e3f3ea; --mal:#b3372e; --mal-f:#fbe9e7; --aviso:#9a6a00; --aviso-f:#fff4d6; --info:#2f5d9c; --info-f:#e7eef9;
+  --serie-cf:#c6702e; --serie-pub:#b3372e; --rejilla:#e6ecea;
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--fondo:#0f1715; --carta:#16201e; --tinta:#e3ebe8; --suave:#97a8a3; --borde:#2a3835; --marca:#7fd1bf;
+    --ok:#6fd39c; --ok-f:#173326; --mal:#f08a80; --mal-f:#3a1d1a; --aviso:#f2c25b; --aviso-f:#34290f; --info:#8fb4ea; --info-f:#1a2639;
+    --serie-cf:#e39a5f; --serie-pub:#f08a80; --rejilla:#24312e;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 8px}
+h1{margin:0;font-size:24px;color:var(--marca)}
+.sub{color:var(--suave);margin:4px 0 0;font-size:14px}
+.aviso-global{margin:16px 0 0;padding:10px 14px;border-radius:10px;font-size:14px}
+.apps{display:grid;gap:16px;margin:20px 0}
+.apps>*,.bloque{min-width:0}
+.app{background:var(--carta);border:1px solid var(--borde);border-radius:12px;padding:18px 20px}
+.app-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.app h2{margin:0;font-size:18px}
+.app .url{font-size:13px;color:var(--suave)}
+.app .url a{color:inherit}
+.pastilla{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:600;font-size:14px;white-space:normal;max-width:100%}
+.pastilla::before{flex:none}
+.pastilla::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
+.p-ok{background:var(--ok-f);color:var(--ok)} .p-mal{background:var(--mal-f);color:var(--mal)} .p-aviso{background:var(--aviso-f);color:var(--aviso)}
+.rutas{margin:12px 0 0;display:grid;gap:6px;font-size:14px}
+.ruta{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.ruta b{min-width:170px;font-weight:600}
+.etq{font-size:12px;padding:1px 8px;border-radius:999px}
+.e-ok{background:var(--ok-f);color:var(--ok)} .e-mal{background:var(--mal-f);color:var(--mal)} .e-info{background:var(--info-f);color:var(--info)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:10px;margin-top:16px}
+.kpi{border:1px solid var(--borde);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--suave)}
+section.bloque{background:var(--carta);border:1px solid var(--borde);border-radius:12px;padding:18px 20px;margin:16px 0}
+section.bloque h2{margin:0 0 4px;font-size:17px}
+.leyenda{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--suave);margin:6px 0 10px}
+.leyenda i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.grafico{width:100%;overflow-x:auto}
+.grafico svg{display:block;min-width:560px;width:100%;height:auto}
+.grafico text{fill:var(--suave);font-size:11px;font-family:inherit}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--suave);padding:8px 8px;border-bottom:1px solid var(--borde)}
+td{padding:8px;border-bottom:1px solid var(--borde);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tabla-wrap{overflow-x:auto}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.filtros button{font:inherit;font-size:13px;padding:5px 12px;border-radius:999px;border:1px solid var(--borde);background:var(--carta);color:var(--tinta);cursor:pointer}
+.filtros button[aria-pressed="true"]{background:var(--marca);border-color:var(--marca);color:var(--carta)}
+footer{color:var(--suave);font-size:13px;padding:8px 0 40px}
+footer a{color:inherit}
+.vacio{color:var(--suave);font-size:14px;padding:8px 0}
+@media (max-width:600px){
+  thead{display:none}
+  table,tbody,tr,td{display:block;width:100%}
+  tr{border:1px solid var(--borde);border-radius:10px;padding:8px 10px;margin-bottom:8px}
+  td{border:0;padding:2px 0;display:flex;gap:8px}
+  td::before{content:attr(data-t);color:var(--suave);font-size:12px;min-width:86px;flex:none}
+  .ruta b{min-width:0;width:100%}
+  .app,.bloque{padding:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="titulo">Estado del acceso</h1>
+    <p class="sub">Accesibilidad desde España de las aplicaciones del Servicio y bloqueos de IP durante los partidos de fútbol. <span id="actualizado"></span></p>
+    <div id="aviso-global"></div>
+  </header>
+
+  <div class="apps" id="apps"><p class="vacio">Cargando…</p></div>
+
+  <section class="bloque">
+    <h2>Horas de bloqueo por semana</h2>
+    <p class="sub">Últimas 12 semanas, todas las aplicaciones.</p>
+    <div class="leyenda">
+      <span class="solo-int"><i style="background:var(--serie-cf)"></i>Ruta directa por Cloudflare bloqueada (evitado gracias al intermediario)</span>
+      <span><i style="background:var(--serie-pub)"></i>Web bloqueada (afectó a los usuarios)</span>
+    </div>
+    <div class="grafico" id="grafico"></div>
+  </section>
+
+  <section class="bloque">
+    <h2>Historial</h2>
+    <div class="filtros" id="filtros"></div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Aplicación</th><th>Qué pasó</th><th>Inicio</th><th>Duración</th><th>Operadores</th></tr></thead>
+      <tbody id="tabla"></tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    <p>Se comprueba cada 15 minutos desde servidores de GitHub situados fuera de España. «Bloqueada» significa que alguna de las direcciones IP de la web aparece en las listas de bloqueo de algún operador según
+      <a href="https://hayahora.futbol" target="_blank" rel="noopener">hayahora.futbol</a> (datos no oficiales, que pueden contener errores).<span class="solo-int"> La «ruta directa por Cloudflare» es el camino que se usaría sin el intermediario.</span></p>
+    <p>Si una aplicación no carga durante un partido, comprueba en <a href="https://hayahora.futbol" target="_blank" rel="noopener">hayahora.futbol</a> si tu operador está bloqueando en ese momento e inténtalo más tarde o desde otra conexión (otra red wifi o datos de otro operador). Los emails de las citas no se ven afectados.</p>
+  </footer>
+</div>
+
+<script>
+const OPS = {movistar:'Movistar', vodafone:'Vodafone', orange:'Orange', masmovil:'MásMóvil', digi:'DIGI'};
+const fmt = new Intl.DateTimeFormat('es-ES', {weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+const fmtCorto = new Intl.DateTimeFormat('es-ES', {day:'numeric', month:'short'});
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const horas = ms => ms / 3600000;
+const durTxt = ms => { const m = Math.round(ms / 60000); return m < 60 ? `${m} min` : `${Math.floor(m/60)} h ${String(m%60).padStart(2,'0')} min`; };
+const opsTxt = l => (l || []).map(o => OPS[o] || o).join(', ');
+let filtro = 'todas';
+
+async function cargar() {
+  const sinCache = '?t=' + Date.now();
+  const [estado, hist] = await Promise.all([
+    fetch('data/estado.json' + sinCache).then(r => r.json()).catch(() => ({})),
+    fetch('data/historial.json' + sinCache).then(r => r.json()).catch(() => ({periodos: []}))
+  ]);
+  pintar(estado, hist.periodos || []);
+}
+
+function duracion(p, ahora) { return Math.max(0, (p.fin ? new Date(p.fin) : ahora) - new Date(p.inicio)); }
+
+/** Horas de solape de un periodo con [desde, hasta). */
+function solape(p, desde, hasta, ahora) {
+  const i = Math.max(new Date(p.inicio), desde), f = Math.min(p.fin ? new Date(p.fin) : ahora, hasta);
+  return Math.max(0, f - i);
+}
+
+function pintar(estado, periodos) {
+  const ahora = new Date();
+  if (estado.titulo) { document.getElementById('titulo').textContent = estado.titulo; document.title = estado.titulo; }
+  if (estado.ultima_comprobacion) document.getElementById('actualizado').textContent = 'Última comprobación publicada: ' + fmt.format(new Date(estado.ultima_comprobacion)) + '.';
+  const viejo = estado.ultima_comprobacion && (ahora - new Date(estado.ultima_comprobacion)) > 3 * 3600000;
+  const avisos = [];
+  if (estado.fuente_ok === false) avisos.push('No se han podido consultar las listas de bloqueo en la última comprobación; el estado de bloqueo puede no estar al día.');
+  if (viejo) avisos.push('Los datos tienen más de 3 horas: puede que la comprobación automática se haya detenido.');
+  document.getElementById('aviso-global').innerHTML = avisos.map(a => `<p class="aviso-global p-aviso" style="display:block">${esc(a)}</p>`).join('');
+
+  // ---- Tarjetas por aplicación
+  const temporada = new Date(ahora.getMonth() >= 7 ? ahora.getFullYear() : ahora.getFullYear() - 1, 7, 1); // 1 de agosto
+  const hace30 = new Date(ahora - 30 * 86400000);
+  const apps = estado.apps || [];
+  const conInt = apps.some(a => a.rutas?.cloudflare);
+  document.querySelectorAll('.solo-int').forEach(e => e.style.display = conInt ? '' : 'none');
+  document.getElementById('apps').innerHTML = apps.length ? apps.map(a => {
+    const pub = a.rutas?.publica || {}, cf = a.rutas?.cloudflare;
+    let pas;
+    if (a.caida) pas = '<span class="pastilla p-aviso">Sin respuesta</span>';
+    else if (pub.bloqueada) pas = `<span class="pastilla p-mal">Bloqueada en ${esc(opsTxt(pub.operadores))}</span>`;
+    else pas = '<span class="pastilla p-ok">Accesible</span>';
+    const pa = periodos.filter(p => p.app === a.id);
+    const suma = (lista, desde) => lista.reduce((t, p) => t + solape(p, desde, ahora, ahora), 0);
+    const cuenta = (lista, desde) => lista.filter(p => (p.fin ? new Date(p.fin) : ahora) > desde).length;
+    const bCf = pa.filter(p => p.tipo === 'bloqueo' && p.ruta === 'cloudflare');
+    const bPub = pa.filter(p => p.tipo === 'bloqueo' && p.ruta === 'publica');
+    const caidas = pa.filter(p => p.tipo === 'caida');
+    return `<article class="app">
+      <div class="app-cab"><div><h2>${esc(a.nombre)}</h2><div class="url"><a href="https://${esc(a.publica)}" rel="noopener">${esc(a.publica)}</a></div></div>${pas}</div>
+      <div class="rutas">
+        <div class="ruta"><b>${cf ? 'Dirección pública' : 'Acceso desde España'}</b>${pub.bloqueada ? `<span class="etq e-mal">bloqueada · ${esc(opsTxt(pub.operadores))}</span>` : '<span class="etq e-ok">sin bloqueos</span>'}
+          ${a.http && a.http.codigo ? `<span class="etq e-info">responde (${a.http.codigo})</span>` : (a.http && !a.http.ok ? '<span class="etq e-mal">no responde</span>' : '')}</div>
+        ${cf ? `<div class="ruta"><b>Ruta directa por Cloudflare</b>${cf.bloqueada ? `<span class="etq e-mal">bloqueada · ${esc(opsTxt(cf.operadores))}</span>${!pub.bloqueada ? ' <span class="etq e-ok">evitado gracias al intermediario</span>' : ''}` : '<span class="etq e-ok">sin bloqueos</span>'}</div>` : ''}
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>${cuenta(bPub, temporada)} · ${horas(suma(bPub, temporada)).toFixed(1)} h</b><span>${cf ? 'bloqueos que afectaron a los usuarios' : 'bloqueos'} (temporada, desde el 1 de agosto)</span></div>
+        ${cf ? `<div class="kpi"><b>${cuenta(bCf, temporada)} · ${horas(suma(bCf, temporada)).toFixed(1)} h</b><span>bloqueos de Cloudflare evitados (temporada)</span></div>
+        <div class="kpi"><b>${horas(suma(bCf, hace30)).toFixed(1)} h</b><span>de bloqueo en Cloudflare, últimos 30 días</span></div>`
+        : `<div class="kpi"><b>${cuenta(bPub, hace30)} · ${horas(suma(bPub, hace30)).toFixed(1)} h</b><span>bloqueos, últimos 30 días</span></div>`}
+        <div class="kpi"><b>${cuenta(caidas, hace30)}</b><span>caídas del servidor, últimos 30 días</span></div>
+      </div>
+    </article>`;
+  }).join('') : '<p class="vacio">Todavía no hay datos. La primera comprobación aparece a los pocos minutos de activar el proceso.</p>';
+
+  // ---- Gráfico semanal (lunes a lunes)
+  const lunes = new Date(ahora); lunes.setHours(0,0,0,0); lunes.setDate(lunes.getDate() - ((lunes.getDay() + 6) % 7));
+  const semanas = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(lunes - i * 7 * 86400000), h = new Date(+d + 7 * 86400000);
+    const sumar = ruta => horas(periodos.filter(p => p.tipo === 'bloqueo' && p.ruta === ruta).reduce((t, p) => t + solape(p, d, h, ahora), 0));
+    semanas.push({d, cf: sumar('cloudflare'), pub: sumar('publica')});
+  }
+  const max = Math.max(1, ...semanas.map(s => Math.max(s.cf, s.pub)));
+  const paso = max <= 5 ? 1 : max <= 10 ? 2 : max <= 25 ? 5 : 10, tope = Math.ceil(max / paso) * paso;
+  const W = 760, H = 220, iz = 34, ab = 26, ar = 10, ancho = (W - iz - 8) / 12, alto = H - ab - ar, y = v => ar + alto - v / tope * alto;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Horas de bloqueo por semana">`;
+  for (let v = 0; v <= tope; v += paso) svg += `<line x1="${iz}" x2="${W-8}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rejilla)"/><text x="${iz-6}" y="${y(v)+4}" text-anchor="end">${v} h</text>`;
+  semanas.forEach((s, i) => {
+    const x = iz + i * ancho, b = Math.min(18, ancho / 2 - 4);
+    const barra = (v, dx, color, nombre) => v > 0 ? `<rect x="${x + ancho/2 + dx}" y="${y(v)}" width="${b}" height="${Math.max(1, y(0) - y(v))}" rx="2" fill="${color}"><title>${nombre}: ${v.toFixed(1)} h (semana del ${fmtCorto.format(s.d)})</title></rect>` : '';
+    svg += barra(s.cf, -b - 1, 'var(--serie-cf)', 'Cloudflare') + barra(s.pub, conInt ? 1 : -b / 2, 'var(--serie-pub)', 'Web bloqueada');
+    if (i % 2 === 0 || window.innerWidth > 700) svg += `<text x="${x + ancho/2}" y="${H - 8}" text-anchor="middle">${fmtCorto.format(s.d)}</text>`;
+  });
+  const g = document.getElementById('grafico'); g.innerHTML = svg + '</svg>'; g.scrollLeft = g.scrollWidth;
+
+  // ---- Historial
+  const nombres = Object.fromEntries(apps.map(a => [a.id, a.nombre]));
+  const opciones = [['todas', 'Todas'], ...apps.map(a => [a.id, a.nombre])];
+  document.getElementById('filtros').innerHTML = opciones.map(([v, t]) => `<button type="button" data-f="${esc(v)}" aria-pressed="${filtro === v}">${esc(t)}</button>`).join('');
+  document.querySelectorAll('#filtros button').forEach(b => b.onclick = () => { filtro = b.dataset.f; pintar(estado, periodos); });
+  const lista = periodos.filter(p => filtro === 'todas' || p.app === filtro).sort((a, b) => b.inicio.localeCompare(a.inicio)).slice(0, 25);
+  const que = p => p.tipo === 'caida' ? 'Servidor sin respuesta' : p.ruta === 'publica' ? '<b>Web bloqueada</b>' : 'Cloudflare bloqueada (evitado)';
+  document.getElementById('tabla').innerHTML = lista.length ? lista.map(p => `<tr>
+      <td data-t="Aplicación">${esc(nombres[p.app] || p.app)}</td><td data-t="Qué pasó">${que(p)}</td>
+      <td class="num" data-t="Inicio">${fmt.format(new Date(p.inicio))}</td>
+      <td class="num" data-t="Duración">${p.fin ? durTxt(duracion(p, ahora)) : '<span class="etq e-mal">en curso</span> ' + durTxt(duracion(p, ahora))}</td>
+      <td data-t="Operadores">${esc(opsTxt(p.operadores)) || '—'}</td></tr>`).join('')
+    : '<tr><td colspan="5" class="vacio">Sin incidencias registradas.</td></tr>';
+}
+
+cargar();
+setInterval(cargar, 5 * 60000);
+</script>
+</body>
+</html>

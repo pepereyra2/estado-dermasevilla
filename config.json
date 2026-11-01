@@ -1,0 +1,15 @@
+{
+  "titulo": "Estado del acceso · Dermatología HUVR",
+  "apps": [
+    {
+      "id": "laboratorios",
+      "nombre": "Visitas de laboratorios",
+      "publica": "laboratoriosvr.dermasevilla.es"
+    },
+    {
+      "id": "rotaciones",
+      "nombre": "Rotaciones externas",
+      "publica": "rotacionesvr.dermasevilla.es"
+    }
+  ]
+}
