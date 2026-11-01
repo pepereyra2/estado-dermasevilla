@@ -1,0 +1,33 @@
+name: Comprobar bloqueos
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comprobar
+  cancel-in-progress: false
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar estado
+        run: python3 comprobar.py
+
+      - name: Publicar cambios
+        run: |
+          if [ -f .publicar ]; then
+            git config user.name "estado-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/
+            git commit -m "Estado $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+            git push
+          fi
