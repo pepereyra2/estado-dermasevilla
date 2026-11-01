@@ -1,6 +1,6 @@
 {
  "titulo": "Estado del acceso · Dermatología HUVR",
- "ultima_comprobacion": "2026-11-01T17:06:43Z",
+ "ultima_comprobacion": "2026-11-01T17:44:20Z",
  "fuente_ok": true,
  "operadores": [
   "movistar",
@@ -25,13 +25,25 @@
     "publica": {
      "host": "laboratoriosvr.dermasevilla.es",
      "ips": [
+      "188.114.96.5",
+      "188.114.97.5",
+      "2a06:98c1:3120::5",
+      "2a06:98c1:3121::5"
+     ],
+     "ips_github": [
       "104.21.5.213",
       "172.67.133.220",
       "2606:4700:3035::6815:5d5",
       "2606:4700:3035::ac43:85dc"
      ],
-     "bloqueada": false,
-     "operadores": []
+     "bloqueada": true,
+     "operadores": [
+      "movistar",
+      "vodafone",
+      "orange",
+      "masmovil",
+      "digi"
+     ]
     }
    },
    "http": {
@@ -49,13 +61,25 @@
     "publica": {
      "host": "rotacionesvr.dermasevilla.es",
      "ips": [
+      "188.114.96.5",
+      "188.114.97.5",
+      "2a06:98c1:3120::5",
+      "2a06:98c1:3121::5"
+     ],
+     "ips_github": [
       "104.21.5.213",
       "172.67.133.220",
       "2606:4700:3035::6815:5d5",
       "2606:4700:3035::ac43:85dc"
      ],
-     "bloqueada": false,
-     "operadores": []
+     "bloqueada": true,
+     "operadores": [
+      "movistar",
+      "vodafone",
+      "orange",
+      "masmovil",
+      "digi"
+     ]
     }
    },
    "http": {
@@ -66,5 +90,5 @@
    "caida": false
   }
  ],
- "ultima_publicacion": "2026-11-01T17:06:43Z"
+ "ultima_publicacion": "2026-11-01T17:44:20Z"
 }

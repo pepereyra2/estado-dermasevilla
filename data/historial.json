@@ -1,3 +1,32 @@
 {
- "periodos": []
+ "periodos": [
+  {
+   "app": "laboratorios",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-01T17:44:20Z",
+   "fin": null,
+   "operadores": [
+    "digi",
+    "masmovil",
+    "movistar",
+    "orange",
+    "vodafone"
+   ]
+  },
+  {
+   "app": "rotaciones",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-01T17:44:20Z",
+   "fin": null,
+   "operadores": [
+    "digi",
+    "masmovil",
+    "movistar",
+    "orange",
+    "vodafone"
+   ]
+  }
+ ]
 }
