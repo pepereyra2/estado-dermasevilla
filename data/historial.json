@@ -55,6 +55,14 @@
     "orange",
     "vodafone"
    ]
+  },
+  {
+   "app": "laboratorios",
+   "tipo": "caida",
+   "ruta": "publica",
+   "inicio": "2026-11-07T23:47:18Z",
+   "fin": null,
+   "operadores": []
   }
  ]
 }
