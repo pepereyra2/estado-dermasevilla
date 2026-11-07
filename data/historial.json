@@ -27,6 +27,26 @@
     "orange",
     "vodafone"
    ]
+  },
+  {
+   "app": "laboratorios",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-07T17:17:18Z",
+   "fin": null,
+   "operadores": [
+    "digi"
+   ]
+  },
+  {
+   "app": "rotaciones",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-07T17:17:18Z",
+   "fin": null,
+   "operadores": [
+    "digi"
+   ]
   }
  ]
 }
