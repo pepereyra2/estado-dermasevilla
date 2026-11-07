@@ -1,6 +1,6 @@
 {
  "titulo": "Estado del acceso · Dermatología HUVR",
- "ultima_comprobacion": "2026-11-07T23:17:17Z",
+ "ultima_comprobacion": "2026-11-07T23:32:19Z",
  "fuente_ok": true,
  "operadores": [
   "movistar",
@@ -36,17 +36,16 @@
       "2606:4700:3035::6815:5d5",
       "2606:4700:3035::ac43:85dc"
      ],
-     "bloqueada": true,
-     "operadores": [
-      "digi"
-     ]
+     "bloqueada": false,
+     "operadores": []
     }
    },
    "http": {
-    "ok": true,
-    "codigo": 200
+    "ok": false,
+    "codigo": null,
+    "error": "The read operation timed out"
    },
-   "fallos_seguidos": 0,
+   "fallos_seguidos": 1,
    "caida": false
   },
   {
@@ -68,19 +67,18 @@
       "2606:4700:3035::6815:5d5",
       "2606:4700:3035::ac43:85dc"
      ],
-     "bloqueada": true,
-     "operadores": [
-      "digi"
-     ]
+     "bloqueada": false,
+     "operadores": []
     }
    },
    "http": {
-    "ok": true,
-    "codigo": 200
+    "ok": false,
+    "codigo": null,
+    "error": "The read operation timed out"
    },
-   "fallos_seguidos": 0,
+   "fallos_seguidos": 1,
    "caida": false
   }
  ],
- "ultima_publicacion": "2026-11-07T23:17:17Z"
+ "ultima_publicacion": "2026-11-07T23:32:19Z"
 }
