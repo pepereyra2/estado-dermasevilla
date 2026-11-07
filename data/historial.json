@@ -36,6 +36,7 @@
    "fin": null,
    "operadores": [
     "digi",
+    "masmovil",
     "movistar",
     "orange",
     "vodafone"
@@ -49,6 +50,7 @@
    "fin": null,
    "operadores": [
     "digi",
+    "masmovil",
     "movistar",
     "orange",
     "vodafone"
