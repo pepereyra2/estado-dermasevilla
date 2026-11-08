@@ -71,7 +71,10 @@
    "inicio": "2026-11-08T15:02:20Z",
    "fin": null,
    "operadores": [
-    "movistar"
+    "digi",
+    "movistar",
+    "orange",
+    "vodafone"
    ]
   },
   {
@@ -81,7 +84,10 @@
    "inicio": "2026-11-08T15:02:20Z",
    "fin": null,
    "operadores": [
-    "movistar"
+    "digi",
+    "movistar",
+    "orange",
+    "vodafone"
    ]
   }
  ]
