@@ -63,6 +63,26 @@
    "inicio": "2026-11-07T23:47:18Z",
    "fin": "2026-11-08T00:02:22Z",
    "operadores": []
+  },
+  {
+   "app": "laboratorios",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-08T15:02:20Z",
+   "fin": null,
+   "operadores": [
+    "movistar"
+   ]
+  },
+  {
+   "app": "rotaciones",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-08T15:02:20Z",
+   "fin": null,
+   "operadores": [
+    "movistar"
+   ]
   }
  ]
 }
