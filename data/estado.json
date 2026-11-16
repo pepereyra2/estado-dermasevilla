@@ -1,6 +1,6 @@
 {
  "titulo": "Estado del acceso · Dermatología HUVR",
- "ultima_comprobacion": "2026-11-16T20:38:48Z",
+ "ultima_comprobacion": "2026-11-16T21:47:21Z",
  "fuente_ok": true,
  "operadores": [
   "movistar",
@@ -13,8 +13,7 @@
   "movistar",
   "vodafone",
   "orange",
-  "masmovil",
-  "digi"
+  "masmovil"
  ],
  "apps": [
   {
@@ -108,5 +107,5 @@
    "caida": false
   }
  ],
- "ultima_publicacion": "2026-11-16T20:38:48Z"
+ "ultima_publicacion": "2026-11-16T21:47:21Z"
 }
