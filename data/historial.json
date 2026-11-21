@@ -91,6 +91,45 @@
     "orange",
     "vodafone"
    ]
+  },
+  {
+   "app": "laboratorios",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-21T17:32:19Z",
+   "fin": null,
+   "operadores": [
+    "digi",
+    "masmovil",
+    "orange",
+    "vodafone"
+   ]
+  },
+  {
+   "app": "rotaciones",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-21T17:32:19Z",
+   "fin": null,
+   "operadores": [
+    "digi",
+    "masmovil",
+    "orange",
+    "vodafone"
+   ]
+  },
+  {
+   "app": "sesiones",
+   "tipo": "bloqueo",
+   "ruta": "publica",
+   "inicio": "2026-11-21T17:32:19Z",
+   "fin": null,
+   "operadores": [
+    "digi",
+    "masmovil",
+    "orange",
+    "vodafone"
+   ]
   }
  ]
 }
